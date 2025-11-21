@@ -31,27 +31,54 @@ export default function HomePage() {
   if (loading) return <h2 style={{ textAlign: "center" }}>Loading...</h2>;
   if (error) return <h2 style={{ textAlign: "center", color: "red" }}>{error}</h2>;
 
+   const categoriesOrder = [
+    "electronics",
+    "men's clothing",
+    "women's clothing",
+    "jewelery",
+  ];
+
+  const grouped = categoriesOrder.reduce((acc, cat) => {
+    acc[cat] = products.filter((p) => p.category === cat);
+    return acc;
+  }, {});
+
   return (
     <>
     <Header />  
     <div className="home-container">
-      <h1 className="title">Products</h1>
+      
 
       <div className="actions">
+        <h1 className="title">Products</h1>
         <Link to="/add" className="btn-add">
           ➕ Add Product
         </Link>
       </div>
 
       <div className="product-grid">
-        {products.map((product) => (
-          <div key={product.id}  className="product-card">
-            <img src={product.image} alt={product.title} className="product-image" />
-            <h3 className="product-title">{product.title}</h3>
-             <button className="product-price">₹{product.price}</button>
-          </div>
-          
-        ))}
+         {categoriesOrder.map((cat) => {
+          const items = grouped[cat] || [];
+          if (!items.length) return null;
+          return (
+            <section key={cat} className="category-section">
+              <h2 className="category-title">{cat}</h2>
+              <div className="product-row">
+                {items.map((product) => (
+                  <div key={product.id} className="product-card">
+                    <img
+                      src={product.image}
+                      alt={product.title}
+                      className="product-image"
+                    />
+                    <h3 className="product-title">{product.title}</h3>
+                    <button className="product-price">₹{product.price}</button>
+                  </div>
+                ))}
+              </div>
+            </section>
+          );
+        })}
         
       </div>
     </div>
