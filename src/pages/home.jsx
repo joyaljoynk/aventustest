@@ -9,20 +9,23 @@ export default function HomePage() {
   const [error, setError] = useState("");
 
  
-  useEffect(() => {
+   useEffect(() => {
     const fetchProducts = async () => {
+      setLoading(true);
+
       try {
         const res = await fetch("https://fakestoreapi.com/products");
-        if (!res.ok) {
-          throw new Error("Failed to fetch products");
-        }
-        const data = await res.json();
-        setProducts(data);
+        const apiProducts = await res.json();
+        const localProducts = JSON.parse(localStorage.getItem("myProducts")) || [];
+        const combined = [...apiProducts, ...localProducts];
+
+        setProducts(combined);
+
       } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
+        setError("Failed to load products");
       }
+
+      setLoading(false);
     };
 
     fetchProducts();
@@ -51,9 +54,11 @@ export default function HomePage() {
 
       <div className="actions">
         <h1 className="title">Products</h1>
-        <Link to="/add" className="btn-add">
-          ➕ Add Product
-        </Link>
+        
+          <button className="button">
+            <Link to="/add"  className='link'>Add Product</Link>
+            </button>
+        
       </div>
 
       <div className="product-grid">

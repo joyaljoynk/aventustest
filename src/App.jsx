@@ -3,6 +3,8 @@ import './App.css'
 import {Navigate,Routes,Route} from 'react-router-dom';
 import LoginPage from './pages/loginpage.jsx'
 import Home from './pages/home.jsx'
+import Add from './pages/add.jsx'
+
 export  function PrivateRoute({ children }) {
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
 
@@ -21,6 +23,12 @@ function App() {
         element={
           <PrivateRoute>
             <Home />
+          </PrivateRoute>}/>
+      <Route
+        path="/add"
+        element={
+          <PrivateRoute>
+            <Add/>
           </PrivateRoute>}/>
     </Routes>
     </>
