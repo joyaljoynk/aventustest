@@ -5,6 +5,8 @@ import LoginPage from './pages/loginpage.jsx'
 import Home from './pages/home.jsx'
 import Add from './pages/add.jsx'
 import ProductDetails from './pages/productdetails.jsx'
+import EditPage from './pages/edit.jsx'
+
 export  function PrivateRoute({ children }) {
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
 
@@ -35,6 +37,12 @@ function App() {
         <PrivateRoute>
        <ProductDetails />
        </PrivateRoute>} />
+
+       <Route path="/edit/:id" element={
+        <PrivateRoute>
+       <EditPage />
+       </PrivateRoute>} />
+
     </Routes>
    
 

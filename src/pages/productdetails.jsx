@@ -8,23 +8,29 @@ export default function ProductDetails() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const api = await fetch(`https://fakestoreapi.com/products/${id}`);
-        const data = await api.json();
-        
-        const local = JSON.parse(localStorage.getItem("myProducts")) || [];
-        const localMatch = local.find(p => p.id == id);
-        
+  const fetchProduct = async () => {
+    try {
+      const api = await fetch(`https://fakestoreapi.com/products/${id}`);
+      const data = await api.json();
+
+      const local = JSON.parse(localStorage.getItem("myProducts")) || [];
+      const localMatch = local.find(p => String(p.id) === String(id));
+      if (Object.keys(data).length === 0 && localMatch) {
+        setProduct(localMatch);
+      } else {
         setProduct(localMatch || data);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
       }
-    };
-    fetchProduct();
-  }, [id]);
+
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchProduct();
+}, [id]);
+
 
   const handleDelete = async () => {
     const local = JSON.parse(localStorage.getItem("myProducts")) || [];
@@ -72,7 +78,7 @@ export default function ProductDetails() {
           <p className="detail-desc">{product.description}</p>
 
           <div className="detail-actions">
-            <button onClick={() => navigate(-1)} className="button back-btn">
+            <button onClick={() => navigate(`/home`)} className="button back-btn">
               Back
             </button>
 
@@ -86,8 +92,8 @@ export default function ProductDetails() {
             <button onClick={handleDelete} className="button delete-btn">
               Delete
             </button>
-          </div>
-        </div>
+                </div>
+            </div>
       </div>
     </div>
   );
