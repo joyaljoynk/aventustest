@@ -1,12 +1,14 @@
 import Header from '../pages/header.jsx';
 
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 
 export default function HomePage() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
+
 
  
    useEffect(() => {
@@ -31,7 +33,7 @@ export default function HomePage() {
     fetchProducts();
   }, []);
 
-  if (loading) return <h2 style={{ textAlign: "center" }}>Loading...</h2>;
+  if (loading) return <h2 style={{ justifyContent:"center",textAlign: "center",color:"blue" }}>Loading...</h2>;
   if (error) return <h2 style={{ textAlign: "center", color: "red" }}>{error}</h2>;
 
    const categoriesOrder = [
@@ -47,17 +49,16 @@ export default function HomePage() {
   }, {});
 
   return (
-    <>
+    <div className="twinkle">
     <Header />  
     <div className="home-container">
-      
+      <div className="logout">
+        <button className="button">
+        <Link to="/"  className='link'>Logout</Link>
+        </button> </div>
 
       <div className="actions">
         <h1 className="title">Products</h1>
-        
-          <button className="button">
-            <Link to="/add"  className='link'>Add Product</Link>
-            </button>
         
       </div>
 
@@ -67,7 +68,12 @@ export default function HomePage() {
           if (!items.length) return null;
           return (
             <section key={cat} className="category-section">
+              <div className="seperater">
               <h2 className="category-title">{cat}</h2>
+              <button className="button">
+            <Link to="/add"  className='link'>Add Product</Link>
+            </button></div>
+              
               <div className="slider-container">
 
                   <button
@@ -78,8 +84,9 @@ export default function HomePage() {
 
 
                   <div className="product-row" id={`row-${cat}`}>
+                    
                     {items.map((product) => (
-                      <div key={product.id} className="product-card">
+                      <div key={product.id} className="product-card" onClick={()=> navigate(`/product/${product.id}`)}>
                         <img src={product.image} alt={product.title} className="product-image" />
                         <h3 className="product-title">{product.title}</h3>
                         <button className="product-price">₹{product.price}</button>
@@ -102,6 +109,6 @@ export default function HomePage() {
         
       </div>
     </div>
-    </>
+    </div>
   );
 }

@@ -80,7 +80,7 @@ const handleLogin = () => {
 
 
         <div className="logincontainer">
-          <h1 className="text">Leading IT Product Distributors</h1>
+          <h1 className="text">A-Z Leading Product Distributors</h1>
           <div className="form">
             <h1 className="textlog">Login</h1>
             <input type="text" placeholder="Username" className="inputlog" value={username} onChange={(e) => setUsername(e.target.value)}/>

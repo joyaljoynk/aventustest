@@ -4,7 +4,7 @@ import {Navigate,Routes,Route} from 'react-router-dom';
 import LoginPage from './pages/loginpage.jsx'
 import Home from './pages/home.jsx'
 import Add from './pages/add.jsx'
-
+import ProductDetails from './pages/productdetails.jsx'
 export  function PrivateRoute({ children }) {
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
 
@@ -30,7 +30,14 @@ function App() {
           <PrivateRoute>
             <Add/>
           </PrivateRoute>}/>
+       <Route 
+       path="/product/:id" element={
+        <PrivateRoute>
+       <ProductDetails />
+       </PrivateRoute>} />
     </Routes>
+   
+
     </>
   )
 }
