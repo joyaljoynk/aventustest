@@ -372,7 +372,7 @@ html {
   margin: 40px auto;
   padding: 20px;
   background-color: #94BDFF;
-  border-radius: 10px;
+  border-radius: 20px;
   color: #000;
   box-sizing: border-box;
 }
@@ -388,7 +388,7 @@ html {
 .add-form select {
   padding: 12px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 15px;
   font-size: 16px;
   width: 100%;
   box-sizing: border-box;
@@ -404,7 +404,7 @@ html {
   background-color: #2f71c6;
   color: black;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   font-size: 18px;
   cursor: pointer;
 }
