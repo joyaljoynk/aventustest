@@ -68,19 +68,34 @@ export default function HomePage() {
           return (
             <section key={cat} className="category-section">
               <h2 className="category-title">{cat}</h2>
-              <div className="product-row">
-                {items.map((product) => (
-                  <div key={product.id} className="product-card">
-                    <img
-                      src={product.image}
-                      alt={product.title}
-                      className="product-image"
-                    />
-                    <h3 className="product-title">{product.title}</h3>
-                    <button className="product-price">₹{product.price}</button>
+              <div className="slider-container">
+
+                  <button
+                    className="arrow left"
+                    onClick={() =>
+                      document.getElementById(`row-${cat}`).scrollBy({ left: -300, behavior: "smooth" })
+                    } > ❮  </button>
+
+
+                  <div className="product-row" id={`row-${cat}`}>
+                    {items.map((product) => (
+                      <div key={product.id} className="product-card">
+                        <img src={product.image} alt={product.title} className="product-image" />
+                        <h3 className="product-title">{product.title}</h3>
+                        <button className="product-price">₹{product.price}</button>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
+
+                  <button
+                    className="arrow right"
+                   onClick={() =>
+                    document.getElementById(`row-${cat}`).scrollBy({ left: 300, behavior: "smooth" })}>  ❯ </button>
+                   
+                  
+
+                </div>
+
             </section>
           );
         })}

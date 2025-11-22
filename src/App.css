@@ -198,12 +198,13 @@ html {
 .product-row {
   display: flex;
   gap: 16px;
-  overflow-x: auto;
-  padding-bottom: 8px;
-  flex-wrap: wrap;
+  overflow-x: auto;    
   padding: 10px;
+  scroll-behavior: smooth;
+  flex-wrap: nowrap;    
 }
-.product-row .product-card { min-width: 100px; flex: 0 0 auto; }
+.product-row .product-card { min-width: 200px;
+  max-width: 200px; flex: 0 0 auto; }
 
 .product-grid {
  display:block;
@@ -417,4 +418,43 @@ html {
     width: 120px;
     height: 120px;
   }
+}
+
+.slider-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.arrow {
+  background: #2f71c9;
+  color: white;
+  border: none;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 5px;
+  transition: 0.2s;
+}
+
+.arrow:hover {
+  background: #1e4f8a;
+  transform: scale(1.1);
+}
+
+.product-row {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding: 10px;
+  scroll-behavior: smooth;
+}
+
+.product-row::-webkit-scrollbar {
+  display: none;
 }
