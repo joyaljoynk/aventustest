@@ -8,50 +8,58 @@ export default function ProductDetails() {
   const navigate = useNavigate();
 
   useEffect(() => {
-  const fetchProduct = async () => {
-    try {
-      const api = await fetch(`https://fakestoreapi.com/products/${id}`);
-      const data = await api.json();
-
+    const fetchProduct = async () => {
+      setLoading(true);
       const local = JSON.parse(localStorage.getItem("myProducts")) || [];
-      const localMatch = local.find(p => String(p.id) === String(id));
-      if (Object.keys(data).length === 0 && localMatch) {
+      const localMatch = local.find((p) => String(p.id) === String(id));
+      if (localMatch) {
         setProduct(localMatch);
-      } else {
-        setProduct(localMatch || data);
+        setLoading(false);
+        return;
       }
+      try {
+        const apiRes = await fetch(`https://fakestoreapi.com/products/${id}`);
+        if (!apiRes.ok) {
+          setProduct(null);
+          setLoading(false);
+          return;
+        }
+        const data = await apiRes.json();
+        if (!data || Object.keys(data).length === 0) {
+          setProduct(null);
+        } else {
+          setProduct(data);
+        }
+      } catch (error) {
+        console.error(error);
+        setProduct(null);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  fetchProduct();
-}, [id]);
-
+    fetchProduct();
+  }, [id]);
 
   const handleDelete = async () => {
     const local = JSON.parse(localStorage.getItem("myProducts")) || [];
-    const isLocalProduct = local.some(p => p.id == id);
+    const isLocalProduct = local.some((p) => String(p.id) === String(id));
 
     if (isLocalProduct) {
-      const updated = local.filter(p => p.id != id);
+      const updated = local.filter((p) => String(p.id) !== String(id));
       localStorage.setItem("myProducts", JSON.stringify(updated));
-
       alert("Product deleted successfully!");
       navigate("/home");
       return;
     }
-    await fetch(`https://fakestoreapi.com/products/${id}`, {
-      method: "DELETE",
-    })
-      .then(res => res.json())
-      .then(json => console.log("Fake delete response:", json));
-
-    alert("API product deleted (simulation only). It will reappear after refresh.");
-    navigate("/home");
+    try {
+      await fetch(`https://fakestoreapi.com/products/${id}`, { method: "DELETE" });
+      alert("API product deleted (simulation only). It will reappear after refresh.");
+      navigate("/home");
+    } catch (err) {
+      console.error(err);
+      alert("Delete failed");
+    }
   };
 
   if (loading)
@@ -82,19 +90,17 @@ export default function ProductDetails() {
               Back
             </button>
 
-            <button
-              onClick={() => navigate(`/edit/${product.id}`)}
-              className="button edit-btn"
-            >
+            <button onClick={() => navigate(`/edit/${product.id}`)} className="button edit-btn">
               Edit
             </button>
 
             <button onClick={handleDelete} className="button delete-btn">
               Delete
             </button>
-                </div>
-            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
 }
+
