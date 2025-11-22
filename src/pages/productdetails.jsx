@@ -65,7 +65,7 @@ export default function ProductDetails() {
   if (loading)
     return (
       <h2 style={{ textAlign: "center", color: "white", marginTop: "50px" }}>
-        Loading...
+        Loading.... 
       </h2>
     );
 

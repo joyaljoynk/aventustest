@@ -33,7 +33,7 @@ export default function HomePage() {
     fetchProducts();
   }, []);
 
-  if (loading) return <h2 style={{ justifyContent:"center",textAlign: "center",color:"blue" }}>Loading...</h2>;
+  if (loading) return <h2 style={{ justifyContent:"center",textAlign: "center",color:"blue" }}> Loading...</h2>;
   if (error) return <h2 style={{ textAlign: "center", color: "red" }}>{error}</h2>;
 
    const categoriesOrder = [
