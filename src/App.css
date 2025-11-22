@@ -427,6 +427,7 @@ html {
 }
 
 .arrow {
+  flex-shrink: 0;
   background: #2f71c9;
   color: white;
   border: none;

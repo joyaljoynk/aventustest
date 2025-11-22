@@ -17,7 +17,7 @@ export default function HomePage() {
         const res = await fetch("https://fakestoreapi.com/products");
         const apiProducts = await res.json();
         const localProducts = JSON.parse(localStorage.getItem("myProducts")) || [];
-        const combined = [...apiProducts, ...localProducts];
+        const combined = [...apiProducts, ...localProducts,...apiProducts];
 
         setProducts(combined);
 
