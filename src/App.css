@@ -168,6 +168,58 @@ html {
   filter: drop-shadow(0 0 8px #17f6c9);
   clip-path: inset(0 0 9% 0);  
 }
+
+@media (max-width: 1024px) {
+.header {
+  font-size: 50px;
+  height: auto;
+  padding: 20px;
+}
+
+.loginpage {
+  flex-direction: column; 
+  gap: 50px; 
+  height: auto;
+}
+
+.logincontainer2 {
+  margin-bottom: 0;
+  margin-top: 20px;
+  transform: scale(0.9); 
+}
+.layer:last-child .triangle1 {
+    margin-bottom: 0;
+}
+.logincontainer2 {
+  padding-bottom: 80px; 
+}
+}
+
+
+@media (max-width: 600px) {
+.header {
+  font-size: 40px;
+}
+
+.logincontainer {
+  width: 90%; 
+  max-width: 350px;
+}
+
+.form {
+  width: 90%;
+  max-width: 350px;
+}
+.logincontainer2 {
+  transform: scale(0.75); 
+  margin-top: 0px;
+  padding-bottom: 50px;
+}
+
+.ringFront {
+  width: 300px;
+}
+}
 .home-container {
   width: 90%;
   margin: auto;
